@@ -1,0 +1,8 @@
+*.d.ts
+*.js
+.gitignore
+.idea
+.prettierignore
+.prettierrc
+# Ignore artifacts:
+node_modules
