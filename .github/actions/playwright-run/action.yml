@@ -14,28 +14,40 @@ inputs:
   GITHUB_TOKEN:
     description: 'Github Token used to deploy GH pages'
     required: true
+  ENV_CONTENT:
+    required: true
+    description: 'The secret ENV content to build CI env'
 
 runs:
   # Composite is define group of steps, no runtime for each step
   using: 'composite'
   steps:
-    - name: Get user context
-      id: getUserContext
+    - name: Create .env.ci file
+      id: create_env_file
       shell: ${{ inputs.SHELL_TYPE }}
       run: |
-        npm run generate-auth
+        touch .env.ci
+        chmod 600 .env.ci
+
+    - name: Copy ENV from secret to env.ci file
+      id: copy_env
+      shell: ${{ inputs.SHELL_TYPE }}
+      run: |
+        printf '%s\n' "$ENV_CONTENT" > .env.ci
+      env:
+        ENV_CONTENT: ${{ inputs.ENV_CONTENT }}
 
     - name: Run test with all specs option
       id: runWithAllSpecs
       shell: ${{ inputs.SHELL_TYPE }}
       run: |
         if ${{ inputs.BROWSER_RUN == 'all' }}; then    
-          (ENV=example npx playwright test) || true
+          (ENV=ci npx playwright test) || true
         else
-          (ENV=example npx playwright test --project=${{ inputs.BROWSER_RUN }}) || true
+          (ENV=ci npx playwright test --project=${{ inputs.BROWSER_RUN }}) || true
         fi
 
-  # Allure Report Generation steps
+    # Allure Report Generation steps
     - name: Load test report history
       uses: actions/checkout@v5
       if: always()
@@ -68,4 +80,3 @@ runs:
         name: allure-report
         path: allure-report
         retention-days: 30
-
