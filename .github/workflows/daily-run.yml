@@ -1,9 +1,9 @@
 name: Daily Attendance Run
 
-# Trigger workflow on schedule (8 AM VST daily) and allow manual trigger
+# Trigger workflow on schedule (16 PM VST daily) and allow manual trigger
 on:
   schedule:
-    - cron: '0 1 * * *'
+    - cron: '0 9 * * *'
   workflow_dispatch:
 
 permissions:
