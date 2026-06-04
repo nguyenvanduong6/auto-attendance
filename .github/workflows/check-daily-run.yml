@@ -2,10 +2,8 @@ name: Check Daily Run
 
 on:
   schedule:
-    - cron: '*/15 * * * *'
-    - cron: '0 1 * * *'
-  workflow_dispatch:
-
+    - cron: '*/5 * * * *'
+    
 jobs:
   ubuntu-run:
     timeout-minutes: 60
