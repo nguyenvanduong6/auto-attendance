@@ -1,2 +1,2 @@
 "DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","7376","TC001 - Verify login successfully","chromium","2026-06-06","passed","2026-06-06","","daily-attendance.spec.ts","",""
+"","6757","TC001 - Verify login successfully","chromium","2026-06-26","passed","2026-06-26","","daily-attendance.spec.ts","",""
